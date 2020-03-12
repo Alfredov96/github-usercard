@@ -2,7 +2,6 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-axios.git('https://api.github.com/users/Alfredov96');
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -25,7 +24,7 @@ axios.git('https://api.github.com/users/Alfredov96');
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+//const followersArray = [];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -44,10 +43,13 @@ const followersArray = [];
     <p>Bio: {users bio}</p>
   </div>
 </div>
-
 */
+
+
+
 function datpiff(data){
-  const card = document.createElement('div');
+  const
+   card = document.createElement('div'),
   image = document.createElement('img'),
   cardI = document.createElement('div'),
   name = document.createElement('h3'),
@@ -58,8 +60,64 @@ function datpiff(data){
   follow = document.createElement ('p'),
   following = document.createElement ('p'),
   bio = document.createElement ('p');
+
+
+  image.src = avatar_url;
+  name.textContent = name;
+  username.textContent = login;
+  location.textContent = location
+  github.src = html_url;
+  follow.textContent = followers;
+  following.textContent = following;
+  bio.textContent = bio;
+
+  image.classList.add('card image');
+    name.classList.add('card .name');
+    username.classList.add('card .username');
+    location.classList.add('card p');
+    profile.classList.add('card p');
+    follow.classList.add('card p');
+    following.classList.add('card p');
+    bio.classList.add('card p');
+
+    card.appendChild(img);
+    card.appendChild(cardInfo);
+    cardInfo.appendChild(name);
+    cardInfo.appendChild(username);
+    cardInfo.appendChild(location);
+    cardInfo.appendChild(profile);
+    cardInfo.appendChild(follow);
+    cardInfo.appendChild(following);
+    cardInfo.appendChild(bio);
+    profile.appendChild(profileURL);
+
+
+    return card;
 }
 
+const cards = document.querySelector('.cards')
+axios.get('https://api.github.com/users/Alfredov96')
+.then(response => {
+  console.log(response.data);
+  cards.appendChild(datpiff(response.data))
+})
+
+.catch(error => {
+  console.log('Nope. Go back.', error);
+})
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+followersArray.forEach(user => {
+  axios
+.get(`https://api.github.com/users/${user}`)
+.then(response => {
+  console.log(response);
+  cards.append(datpiff(response.data))
+})
+.catch(error => {
+  console.log('Nope. Go back.', error);
+});
+});
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
