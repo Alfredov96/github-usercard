@@ -62,44 +62,42 @@ function datpiff(data){
   bio = document.createElement ('p');
 
 
-  image.src = avatar_url;
-  name.textContent = name;
-  username.textContent = login;
-  location.textContent = location
-  github.src = html_url;
-  follow.textContent = followers;
-  following.textContent = following;
-  bio.textContent = bio;
+  image.src = `${data.avatar_url}`;
+  name.textContent = `${data.name}`;
+  username.textContent = `${data.login}`;
+  location.textContent = `${data.location}`;
+  github.src = `${data.url}`;
+  follow.textContent = `${data.followers}`;
+  following.textContent = `${data.following}`;
+  bio.textContent = `${data.bio}`;
 
-  image.classList.add('card image');
-    name.classList.add('card .name');
-    username.classList.add('card .username');
-    location.classList.add('card p');
-    profile.classList.add('card p');
-    follow.classList.add('card p');
-    following.classList.add('card p');
-    bio.classList.add('card p');
+   card.classList.add('card')
+  cardI.classList.add('card-info')
+  name.classList.add('name')
+  username.classList.add('username')
+    
 
-    card.appendChild(img);
-    card.appendChild(cardInfo);
-    cardInfo.appendChild(name);
-    cardInfo.appendChild(username);
-    cardInfo.appendChild(location);
-    cardInfo.appendChild(profile);
-    cardInfo.appendChild(follow);
-    cardInfo.appendChild(following);
-    cardInfo.appendChild(bio);
-    profile.appendChild(profileURL);
+    card.append(image);
+    card.append(cardI);
+    cardI.append(name);
+    cardI.append(username);
+    cardI.append(location);
+    cardI.append(profile);
+    cardI.append(follow);
+    cardI.append(following);
+    cardI.append(bio);
+    profile.append(github);
 
 
     return card;
 }
 
-const cards = document.querySelector('.cards')
+const cards = document.querySelector('.cards');
+
 axios.get('https://api.github.com/users/Alfredov96')
 .then(response => {
   console.log(response.data);
-  cards.appendChild(datpiff(response.data))
+  cards.append(datpiff(response.data))
 })
 
 .catch(error => {
@@ -108,8 +106,7 @@ axios.get('https://api.github.com/users/Alfredov96')
 const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
 followersArray.forEach(user => {
-  axios
-.get(`https://api.github.com/users/${user}`)
+  axios.get(`https://api.github.com/users/${user}`)
 .then(response => {
   console.log(response);
   cards.append(datpiff(response.data))
